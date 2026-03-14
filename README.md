@@ -84,7 +84,7 @@ Skills: JavaScript, React, Vue, Node.js
 
 Resume / CV Assistant is a **clawbot skill** — a structured prompt package that AI agents can load and execute. It contains:
 
-- **System prompt** defining the AI's persona and quality standards
+- **Persona definition** specifying the AI's role and quality standards
 - **Command-specific prompts** with detailed instructions for each task
 - **Templates** for resume styles and export formats
 - **Skill manifest** (`skill.json` / `skill.yaml`) describing commands, arguments, and configuration

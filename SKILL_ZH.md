@@ -139,7 +139,7 @@ English also works:
 AI Agent 在处理简历相关请求时，按以下顺序加载提示词文件：
 
 ```
-1. prompts/system.md      ← 始终加载，定义角色和质量标准
+1. prompts/system.md      ← 角色定义与质量标准（首先加载）
 2. prompts/<command>.md    ← 根据命令加载对应的提示词
 3. templates/<style>.md    ← 按需加载模板（仅 export 命令使用）
 ```
@@ -563,7 +563,7 @@ resume-assistant/
 ├── SKILL_ZH.md                   # 中文文档（本文件）
 ├── LICENSE                       # MIT 开源许可证
 ├── prompts/
-│   ├── system.md                 # 系统提示词：角色定义与质量标准
+│   ├── system.md                 # 角色定义与质量标准
 │   ├── polish.md                 # 润色提示词：40+ 项检查清单
 │   ├── customize.md              # 定制提示词：差距分析与关键词优化
 │   ├── export.md                 # 导出提示词：5 种格式 × 4 种模板

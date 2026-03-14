@@ -127,10 +127,10 @@ Register this project as a skill in your AI Agent:
 
 #### 2. Load Prompts
 
-When handling resume-related requests, the AI Agent should load prompt files in this order:
+When handling resume-related requests, prompt files are loaded in this order:
 
 ```
-1. prompts/system.md      ← Always load: defines persona & quality standards
+1. prompts/system.md      ← Persona & quality standards (loaded first)
 2. prompts/<command>.md    ← Load per command: specific instructions
 3. templates/<style>.md    ← Load on demand (export command only)
 ```
@@ -491,7 +491,7 @@ resume-assistant/
 ├── skill.yaml                    # Skill manifest (YAML)
 ├── SKILL.md                      # This documentation
 ├── prompts/
-│   ├── system.md                 # System prompt: persona & quality standards
+│   ├── system.md                 # Persona definition & quality standards
 │   ├── polish.md                 # Polish prompt: 40+ item checklist
 │   ├── customize.md              # Customize prompt: gap analysis & keywords
 │   ├── export.md                 # Export prompt: 5 formats × 4 templates
