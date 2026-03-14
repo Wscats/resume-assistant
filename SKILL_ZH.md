@@ -1,7 +1,7 @@
 # 📝 简历助手 (Resume / CV Assistant)
 
 > AI 驱动的 clawbot 技能，提供简历（Resume / CV）润色、职位定制、多格式导出和专业评分一站式服务。
-**版本：** 1.0.0 · **许可证：** MIT
+**版本：** 1.0.0 · **许可证：** MIT · **仓库地址：** [github.com/Wscats/resume-assistant](https://github.com/Wscats/resume-assistant)
 
 ---
 

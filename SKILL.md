@@ -1,7 +1,7 @@
 # 📝 Resume / CV Assistant
 
 > AI-powered clawbot skill for resume & CV polishing, job customization, multi-format export, and professional scoring.
-**Version:** 1.0.0 · **License:** MIT
+**Version:** 1.0.0 · **License:** MIT · **Repository:** [github.com/Wscats/resume-assistant](https://github.com/Wscats/resume-assistant)
 
 ---
 
