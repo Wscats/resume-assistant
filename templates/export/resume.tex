@@ -1,0 +1,97 @@
+%% Resume Template for Resume Assistant
+%% Compile: xelatex resume.tex (recommended for Unicode/CJK support)
+%%          pdflatex resume.tex (ASCII only)
+
+\documentclass[11pt,a4paper]{article}
+
+%% === Packages ===
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{tabularx}
+%% Uncomment for Chinese support (requires xelatex):
+%% \usepackage{ctex}
+
+%% === Colors ===
+\definecolor{primary}{HTML}{2C3E50}
+\definecolor{accent}{HTML}{3498DB}
+\definecolor{gray}{HTML}{555555}
+
+%% === Hyperlinks ===
+\hypersetup{
+    colorlinks=true,
+    urlcolor=accent,
+    pdftitle={Resume - {{name}}},
+    pdfauthor={{{name}}}
+}
+
+%% === Section Headings ===
+\titleformat{\section}{\Large\bfseries\color{primary}}{}{0em}{}[\titlerule]
+\titlespacing{\section}{0pt}{12pt}{6pt}
+
+%% === Custom Commands ===
+\newcommand{\entry}[4]{%
+    \noindent\begin{tabularx}{\textwidth}{@{}Xr@{}}
+        \textbf{#1} & \textcolor{gray}{\small #3} \\
+        \textit{\textcolor{gray}{#2}} & \textcolor{gray}{\small\textit{#4}}
+    \end{tabularx}\vspace{2pt}%
+}
+
+%% === List Style ===
+\setlist[itemize]{leftmargin=18pt, itemsep=2pt, parsep=0pt, topsep=4pt}
+
+%% === No Page Numbers (single page) ===
+\pagestyle{empty}
+
+%% ============================
+\begin{document}
+
+%% --- Header ---
+\begin{center}
+    {\Huge\bfseries\color{primary} {{name}}} \\[6pt]
+    \textcolor{gray}{
+        {{email}} \quad | \quad {{phone}} \quad | \quad {{location}} \\
+        \href{{{linkedin}}}{LinkedIn} \quad | \quad \href{{{portfolio}}}{Portfolio}
+    }
+\end{center}
+\vspace{8pt}
+
+%% --- Summary ---
+\section{Professional Summary}
+{{summary}}
+
+%% --- Experience ---
+\section{Experience}
+
+\entry{{{job_title}}}{{{company}}}{{{start_date}} -- {{end_date}}}{{{job_location}}}
+\begin{itemize}
+    \item {{bullet_1}}
+    \item {{bullet_2}}
+    \item {{bullet_3}}
+\end{itemize}
+
+%% --- Education ---
+\section{Education}
+
+\entry{{{degree}} in {{major}}}{{{university}}}{{{graduation_date}}}{}
+
+%% --- Skills ---
+\section{Skills}
+\noindent\begin{tabularx}{\textwidth}{@{}lX@{}}
+    \textbf{Technical:} & {{technical_skills}} \\
+    \textbf{Tools:}     & {{tools}} \\
+    \textbf{Languages:} & {{languages}}
+\end{tabularx}
+
+%% --- Certifications ---
+\section{Certifications}
+\begin{itemize}
+    \item {{certification}} -- {{issuer}} ({{date}})
+\end{itemize}
+
+\end{document}
