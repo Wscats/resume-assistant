@@ -1,8 +1,8 @@
 
 <p align="center">
-  <h1 align="center">📝 简历助手 (Resume Assistant)</h1>
+  <h1 align="center">📝 简历助手 (Resume / CV Assistant)</h1>
   <p align="center">
-    <strong>AI 驱动的 clawbot 技能 —— 简历润色、职位定制、多格式导出、专业评分，一站式搞定。</strong>
+    <strong>AI 驱动的 clawbot 技能 —— 简历（Resume / CV）润色、职位定制、多格式导出、专业评分，一站式搞定。</strong>
   </p>
   <p align="center">
     <a href="./LICENSE"><img src="https://img.shields.io/badge/许可证-MIT-blue.svg" alt="许可证: MIT"></a>
@@ -30,9 +30,44 @@
 
 ## 🚀 快速开始
 
-### 在 clawbot 中直接使用
+### 直接对话即可！
 
-在 clawbot 对话中输入斜杠命令即可：
+不需要记忆任何命令 —— 直接描述你的需求：
+
+```
+💬 "帮我写一份软件工程师的简历"
+💬 "润色我的简历，修复所有问题"
+💬 "优化我的简历，让它通过 ATS 筛选"
+💬 "根据这个职位描述定制我的简历：[粘贴 JD]"
+💬 "把我的简历转成 PDF"
+💬 "给我的简历打个分，告诉我怎么改进"
+💬 "我的简历有什么问题？"
+💬 "这是我的简历，帮我看看"
+```
+
+English works too:
+```
+💬 "Create a resume for a software engineer position"
+💬 "Optimize my resume for ATS"
+💬 "Tailor my resume for this job description: [paste JD]"
+💬 "Score my resume and tell me how to improve"
+```
+
+助手会理解你的意图，自动路由到正确的工作流：
+
+| 你说 | 助手做什么 |
+|------|-----------|
+| "帮我写一份 [职位] 的简历" | 询问你的背景信息 → 生成定制简历 |
+| "润色 / 修改 / 优化我的简历" | 执行 40+ 项检查 → 返回润色后的版本 |
+| "优化 ATS" | 检查 ATS 兼容性 → 优化关键词和格式 |
+| "根据这个 JD 定制：..." | 分析 JD → 差距分析 → 定制简历 |
+| "转成 PDF / Word / ..." | 用专业模板导出为指定格式 |
+| "给简历打分 / 评估 / 怎么样" | 100 分制评分 → 优势与改进方案 |
+| "这是我的简历，帮我看看" | 先评分 → 再建议后续步骤 |
+
+### 斜杠命令（精确控制）
+
+如果需要更精细的控制，也可以直接使用斜杠命令：
 
 ```
 /resume polish
@@ -57,7 +92,7 @@
 
 ## 📖 工作原理
 
-简历助手是一个 **clawbot 技能（skill）**—— 一套结构化的提示词包，可以被任何 AI Agent 加载和执行。它包含：
+简历助手是一个 **clawbot 技能（skill）**—— 一套结构化的提示词包，可以被任何 AI Agent 加载和执行。它支持 Resume 和 CV 两种格式，包含：
 
 - **系统提示词** —— 定义 AI 的角色和质量标准
 - **命令提示词** —— 每个功能的详细指令
@@ -65,12 +100,14 @@
 - **技能清单** （`skill.json` / `skill.yaml`）—— 描述命令、参数和配置
 
 ```
-用户输入 ──► 命令路由 ──► 加载提示词 ──► LLM 处理 ──► 结构化输出
-                │
-                ├── /resume polish    → prompts/polish.md
-                ├── /resume customize → prompts/customize.md
-                ├── /resume export    → prompts/export.md
-                └── /resume score     → prompts/score.md
+用户输入 ─┬─ 斜杠命令 ──────────► 命令路由 ──► 加载提示词 ──► LLM 处理 ──► 结构化输出
+          │                          │
+          └─ 自然语言 ──► 意图识别 ──┘
+                                     │
+              ├── polish / "润色简历"     → prompts/polish.md
+              ├── customize / "定制简历"  → prompts/customize.md
+              ├── export / "转成PDF"     → prompts/export.md
+              └── score / "给简历打分"    → prompts/score.md
 ```
 
 ---
@@ -129,13 +166,17 @@ resume-assistant/
 ### 方式二：通过代码构建提示词
 
 ```python
+ROLE_SYS = "system"    # LLM message role constant
+ROLE_USR = "user"      # LLM message role constant
+
 def build_prompt(command, args):
-    system_prompt = load_file("prompts/system.md")
+    persona_prompt = load_file("prompts/system.md")
     command_prompt = load_file(f"prompts/{command}.md")
 
+    combined = persona_prompt + "\n\n" + command_prompt
     messages = [
-        {"role": "system", "content": system_prompt + "\n\n" + command_prompt},
-        {"role": "user", "content": args["resume_content"]}
+        {"role": ROLE_SYS, "content": combined},
+        {"role": ROLE_USR, "content": args["resume_content"]}
     ]
     return messages
 ```

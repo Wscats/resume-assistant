@@ -1,8 +1,8 @@
 
 <p align="center">
-  <h1 align="center">📝 Resume Assistant</h1>
+  <h1 align="center">📝 Resume / CV Assistant</h1>
   <p align="center">
-    <strong>AI-powered clawbot skill for resume polishing, job customization, multi-format export, and professional scoring.</strong>
+    <strong>AI-powered clawbot skill for resume & CV polishing, job customization, multi-format export, and professional scoring.</strong>
   </p>
   <p align="center">
     <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
@@ -28,9 +28,36 @@
 
 ## 🚀 Quick Start
 
-### In clawbot (Direct Usage)
+### Just Ask!
 
-Simply type slash commands in a clawbot conversation:
+You don't need to memorize any commands — simply describe what you need:
+
+```
+💬 "Create a resume for a software engineer position"
+💬 "Polish my resume and fix any issues"
+💬 "Optimize my resume for ATS"
+💬 "Tailor my resume for this job description: [paste JD]"
+💬 "Convert my resume to PDF"
+💬 "Score my resume and tell me how to improve"
+💬 "What's wrong with my resume?"
+💬 "Here's my resume, can you help?"
+```
+
+The assistant understands your intent and automatically routes to the right workflow:
+
+| You say | Assistant does |
+|---------|---------------|
+| "Create a resume for [role]" | Asks for your background → builds a tailored resume |
+| "Polish / Fix / Improve my resume" | Runs 40+ checklist review → returns polished version |
+| "Optimize for ATS" | Checks ATS compatibility → optimizes keywords & format |
+| "Tailor for this JD: ..." | Analyzes JD → gap analysis → customized resume |
+| "Convert to PDF / Word / ..." | Exports to chosen format with professional template |
+| "Score / Rate / Evaluate my resume" | 100-point scoring → strengths & improvement plan |
+| "Here's my resume, help?" | Scores first → suggests next steps |
+
+### Slash Commands (Precise Control)
+
+For more fine-grained control, use slash commands directly:
 
 ```
 /resume polish
@@ -55,7 +82,7 @@ Skills: JavaScript, React, Vue, Node.js
 
 ## 📖 How It Works
 
-Resume Assistant is a **clawbot skill** — a structured prompt package that AI agents can load and execute. It contains:
+Resume / CV Assistant is a **clawbot skill** — a structured prompt package that AI agents can load and execute. It contains:
 
 - **System prompt** defining the AI's persona and quality standards
 - **Command-specific prompts** with detailed instructions for each task
@@ -63,12 +90,14 @@ Resume Assistant is a **clawbot skill** — a structured prompt package that AI 
 - **Skill manifest** (`skill.json` / `skill.yaml`) describing commands, arguments, and configuration
 
 ```
-User Input ──► Command Router ──► Load Prompts ──► LLM ──► Structured Output
-                  │
-                  ├── /resume polish    → prompts/polish.md
-                  ├── /resume customize → prompts/customize.md
-                  ├── /resume export    → prompts/export.md
-                  └── /resume score     → prompts/score.md
+User Input ─┬─ Slash Command ──────► Command Router ──► Load Prompts ──► LLM ──► Structured Output
+            │                            │
+            └─ Natural Language ──► Intent Detection ──┘
+                                         │
+                  ├── polish / "fix my resume"     → prompts/polish.md
+                  ├── customize / "tailor for JD"  → prompts/customize.md
+                  ├── export / "convert to PDF"    → prompts/export.md
+                  └── score / "rate my resume"     → prompts/score.md
 ```
 
 ---
@@ -127,13 +156,17 @@ resume-assistant/
 ### Option 2: Build Prompts Programmatically
 
 ```python
+ROLE_SYS = "system"    # LLM message role constant
+ROLE_USR = "user"      # LLM message role constant
+
 def build_prompt(command, args):
-    system_prompt = load_file("prompts/system.md")
+    persona_prompt = load_file("prompts/system.md")
     command_prompt = load_file(f"prompts/{command}.md")
 
+    combined = persona_prompt + "\n\n" + command_prompt
     messages = [
-        {"role": "system", "content": system_prompt + "\n\n" + command_prompt},
-        {"role": "user", "content": args["resume_content"]}
+        {"role": ROLE_SYS, "content": combined},
+        {"role": ROLE_USR, "content": args["resume_content"]}
     ]
     return messages
 ```

@@ -1,4 +1,77 @@
-# Resume Assistant — Usage Examples
+# Resume / CV Assistant — Usage Examples
+## 💬 Quick Start — Just Ask!
+
+You don't need to memorize commands. Simply tell the assistant what you need in plain language:
+
+| Just say... | What happens |
+|-------------|-------------|
+| 💬 "Create a resume for a software engineer position" | Asks for your background, then builds a tailored resume |
+| 💬 "Polish my resume" *(then paste your resume)* | Runs 40+ item checklist review and rewrites |
+| 💬 "Optimize my resume for ATS" | Checks ATS compatibility, optimizes keywords and formatting |
+| 💬 "Tailor my resume for this job description: [paste JD]" | Analyzes JD, performs gap analysis, customizes your resume |
+| 💬 "Convert my resume to PDF" | Exports to PDF using the professional template |
+| 💬 "Score my resume and tell me how to improve" | Scores out of 100 with detailed improvement plan |
+| 💬 "What's wrong with my resume?" | Evaluates and identifies key issues to fix |
+| 💬 "Here's my resume, can you help?" | Scores first, then suggests next steps |
+
+### Example Conversations
+
+**Creating a new resume:**
+```
+You:   Create a resume for a frontend engineer position at a startup
+
+Bot:   I'd be happy to help create a tailored resume! To get started, could you
+       share the following:
+       1. Your work experience (companies, roles, dates, key achievements)
+       2. Education background
+       3. Technical skills
+       4. Any specific job posting you're targeting? (optional but recommended)
+
+You:   I have 3 years of experience at Shopify working on React...
+       [provides background details]
+
+Bot:   Here's your tailored resume:
+       [generates complete resume using customize workflow]
+       
+       Would you like me to:
+       • Score this resume to see how it rates?
+       • Export it to PDF or Word?
+       • Polish it further for specific improvements?
+```
+
+**Quick improvement:**
+```
+You:   Here's my resume, what do you think?
+       [pastes resume]
+
+Bot:   📊 Resume Score: 68/100 (Grade: C)
+       
+       Top 3 Issues:
+       1. ❌ No quantified achievements — add metrics
+       2. ⚠️ Weak action verbs — replace "responsible for" with impact verbs
+       3. ⚠️ Missing keywords for your target role
+       
+       Would you like me to polish it now? I can fix all these issues.
+
+You:   Yes, polish it
+
+Bot:   [runs full polish with 40+ checklist items]
+```
+
+**Job-specific tailoring:**
+```
+You:   Tailor my resume for this job description:
+       Senior Backend Engineer at Stripe
+       Requirements: Go, distributed systems, payment APIs...
+
+Bot:   🎯 Job Analysis Complete
+       📊 Current Match: 62% → After Optimization: 89%
+       [generates tailored version with keyword optimization]
+```
+
+> 💡 **Tip:** You can also use slash commands for more precise control — see below.
+
+---
 
 ## Quick Reference
 
@@ -12,7 +85,6 @@
 ---
 
 ## Example 1: Polish a Resume
-
 **Command:** `/resume polish`
 
 **Input:**

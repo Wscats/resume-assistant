@@ -1,14 +1,13 @@
-# 📝 Resume Assistant
+# 📝 Resume / CV Assistant
 
-> AI-powered clawbot skill for resume polishing, job customization, multi-format export, and professional scoring.
-
+> AI-powered clawbot skill for resume & CV polishing, job customization, multi-format export, and professional scoring.
 **Version:** 1.0.0 · **License:** MIT
 
 ---
 
 ## Overview
 
-Resume Assistant is a clawbot skill that helps job seekers create, refine, and optimize their resumes, while adding comprehensive checklist review, scoring, and multi-format export that neither project offers alone.
+Resume / CV Assistant is a clawbot skill that helps job seekers create, refine, and optimize their resumes and CVs, while adding comprehensive checklist review, scoring, and multi-format export that neither project offers alone.
 
 ---
 
@@ -16,11 +15,87 @@ Resume Assistant is a clawbot skill that helps job seekers create, refine, and o
 
 ### Quick Start
 
-Resume Assistant is a standard clawbot skill that can be loaded and invoked by any compatible AI Agent. Here are different integration approaches.
+Resume / CV Assistant is a standard clawbot skill that can be loaded and invoked by any compatible AI Agent. Here are different integration approaches.
 
-### Option 1: Direct Usage via clawbot
+### 💬 Natural Language (Recommended)
 
-In a clawbot conversation, simply type slash commands:
+You don't need to memorize any commands — simply describe what you need:
+
+```
+💬 "Create a resume for a software engineer position"
+💬 "Polish my resume and fix any issues"
+💬 "Optimize my resume for ATS"
+💬 "Tailor my resume for this job description: [paste JD]"
+💬 "Convert my resume to PDF"
+💬 "Score my resume and tell me how to improve"
+💬 "What's wrong with my resume?"
+💬 "Here's my resume, can you help?"
+```
+
+The assistant understands your intent and automatically routes to the right workflow:
+
+| You say | Assistant does |
+|---------|---------------|
+| "Create a resume for [role]" | Asks for your background → builds a tailored resume |
+| "Polish / Fix / Improve my resume" | Runs 40+ checklist review → returns polished version |
+| "Optimize for ATS" | Checks ATS compatibility → optimizes keywords & format |
+| "Tailor for this JD: ..." | Analyzes JD → gap analysis → customized resume |
+| "Convert to PDF / Word / ..." | Exports to chosen format with professional template |
+| "Score / Rate / Evaluate my resume" | 100-point scoring → strengths & improvement plan |
+| "Here's my resume, help?" | Scores first → suggests next steps |
+
+#### Example Conversations
+
+**Creating a new resume:**
+```
+You:   Create a resume for a frontend engineer position at a startup
+
+Bot:   I'd be happy to help! To get started, could you share:
+       1. Your work experience (companies, roles, dates, key achievements)
+       2. Education background
+       3. Technical skills
+       4. Any specific job posting you're targeting? (optional)
+
+You:   I have 3 years at Shopify working on React...
+
+Bot:   Here's your tailored resume:
+       [generates complete resume]
+       
+       Would you like me to score, polish, or export it?
+```
+
+**Quick improvement:**
+```
+You:   Here's my resume, what do you think?
+       [pastes resume]
+
+Bot:   📊 Resume Score: 68/100 (Grade: C)
+       Top 3 Issues:
+       1. ❌ No quantified achievements
+       2. ⚠️ Weak action verbs
+       3. ⚠️ Missing keywords for target role
+       
+       Would you like me to polish it now?
+
+You:   Yes, polish it
+
+Bot:   [runs full polish with 40+ checklist items]
+```
+
+**Job-specific tailoring:**
+```
+You:   Tailor my resume for this job description:
+       Senior Backend Engineer at Stripe
+       Requirements: Go, distributed systems, payment APIs...
+
+Bot:   🎯 Job Analysis Complete
+       📊 Current Match: 62% → After Optimization: 89%
+       [generates tailored version]
+```
+
+### Option 1: Slash Commands via clawbot
+
+For more precise control, use slash commands directly in a clawbot conversation:
 
 ```
 /resume polish
@@ -66,17 +141,21 @@ Example for `/resume polish` — here's how an AI Agent should construct the pro
 
 ```python
 # Python pseudocode
+ROLE_SYS = "system"    # LLM message role constant
+ROLE_USR = "user"      # LLM message role constant
+
 def build_prompt(command, args):
-    # Step 1: Load system prompt
-    system_prompt = load_file("prompts/system.md")
+    # Step 1: Load the skill persona prompt
+    persona_prompt = load_file("prompts/system.md")
 
     # Step 2: Load command-specific prompt
     command_prompt = load_file(f"prompts/{command}.md")
 
-    # Step 3: Combine prompts
+    # Step 3: Combine prompts into LLM messages
+    combined = persona_prompt + "\n\n" + command_prompt
     messages = [
-        {"role": "system", "content": system_prompt + "\n\n" + command_prompt},
-        {"role": "user", "content": args["resume_content"]}
+        {"role": ROLE_SYS, "content": combined},
+        {"role": ROLE_USR, "content": args["resume_content"]}
     ]
 
     # Step 4: Add optional parameters to user message
@@ -88,17 +167,21 @@ def build_prompt(command, args):
 
 ```javascript
 // JavaScript pseudocode
+const ROLE_SYS = 'system';  // LLM message role constant
+const ROLE_USR = 'user';    // LLM message role constant
+
 async function buildPrompt(command, args) {
-  // Step 1: Load system prompt
-  const systemPrompt = await loadFile('prompts/system.md');
+  // Step 1: Load the skill persona prompt
+  const personaPrompt = await loadFile('prompts/system.md');
 
   // Step 2: Load command-specific prompt
   const commandPrompt = await loadFile(`prompts/${command}.md`);
 
-  // Step 3: Combine prompts
+  // Step 3: Combine prompts into LLM messages
+  const combined = `${personaPrompt}\n\n${commandPrompt}`;
   const messages = [
-    { role: 'system', content: `${systemPrompt}\n\n${commandPrompt}` },
-    { role: 'user', content: args.resume_content }
+    { role: ROLE_SYS, content: combined },
+    { role: ROLE_USR, content: args.resume_content }
   ];
 
   // Step 4: Add optional parameters
@@ -369,18 +452,23 @@ Get a **100-point professional evaluation** with specific improvement suggestion
 ├──────────────────────────────────────────────────────┤
 │                                                      │
 │  1. /resume score     ← Know where you stand         │
+│     💬 "Score my resume"                             │
 │          │                                           │
 │          ▼                                           │
 │  2. /resume polish    ← Fix all issues               │
+│     💬 "Polish my resume"                            │
 │          │                                           │
 │          ▼                                           │
 │  3. /resume customize ← Tailor per application       │
+│     💬 "Tailor for this JD: ..."                     │
 │          │                                           │
 │          ▼                                           │
 │  4. /resume export    ← Generate final files         │
+│     💬 "Convert to PDF"                              │
 │          │                                           │
 │          ▼                                           │
 │  5. /resume score     ← Verify improvement           │
+│     💬 "Score my resume again"                       │
 │                                                      │
 └──────────────────────────────────────────────────────┘
 ```
